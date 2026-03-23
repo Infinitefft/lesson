@@ -1,6 +1,6 @@
 import React from 'react';
 // 假设上面的代码保存在 store.js 文件中
-import { create } from './zustand';
+import { create } from './zustand5';
 
 // 1. 创建 Store
 // createState 接收 (set, get, api) 参数

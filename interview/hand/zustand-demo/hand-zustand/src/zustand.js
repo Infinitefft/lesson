@@ -19,6 +19,8 @@ const createStore = (createState) => {
   // replace 是否替换状态
   const setState = (partial, replace = false) => {
     const nextState = typeof partial === 'function' ? partial(state): partial;
+    // Object.is(val1, val2) 比较两个值是否相等
+    // 指向同一个内存地址（或者是相同的原始值），它返回 true
     if (!Object.is(nextState, state)) {
       const previousState = state;
       if (!replace) {
@@ -28,8 +30,6 @@ const createStore = (createState) => {
       } else {
         state = nextState;
       }
-      listeners.forEach(listener => listener(state, previousState));
-    } else {
       listeners.forEach(listener => listener(state, previousState));
     }
   }
@@ -52,7 +52,7 @@ const createStore = (createState) => {
     destory,
   }
 
-  state = createState(setState, getState);
+  state = createState(setState, getState, api);
   return api;
 }
 
@@ -65,13 +65,14 @@ const useStore = (api, selector) => {
   useEffect(() => {
     // 自动订阅 不需要手动subscribe
     // 只关心的状态 改变了
-    api.subscribe((state, previousState) => {
+    const unsubscribe = api.subscribe((state, previousState) => {
       const newObj = selector(state);  // 关心的才会改变
       const oldObj = selector(previousState);
       if ((newObj !== oldObj)) {
         forceRender(Math.random());  // 强制组件刷新
       }
     })
+    return () => unsubscribe();
   }, []);
 
   return selector(api.getState());
