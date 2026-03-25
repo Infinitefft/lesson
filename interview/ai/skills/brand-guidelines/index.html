@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your AI Product - Landing</title>
+  <meta name="description" content="A brand-consistent landing page for your AI product." />
+
+  <style>
+    :root{
+      --bg-dark:#141413;
+      --text-light:#faf9f5;
+      --muted:#b0aea5;
+      --light-gray:#e8e6dc;
+
+      --accent-orange:#d97757;
+      --accent-blue:#6a9bcc;
+      --accent-green:#788c5d;
+
+      --radius:18px;
+      --shadow: 0 12px 40px rgba(0,0,0,.35);
+      --border: rgba(250,249,245,.14);
+
+      --heading: "Poppins", Arial, sans-serif;
+      --body: "Lora", Georgia, serif;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:var(--body);
+      background:var(--bg-dark);
+      color:var(--text-light);
+      line-height:1.6;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    .container{
+      width:min(1120px, calc(100% - 40px));
+      margin:0 auto;
+    }
+
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: rgba(20,20,19,.75);
+      border-bottom:1px solid rgba(250,249,245,.08);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      font-family:var(--heading);
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+    .logo{
+      width:34px; height:34px; border-radius:10px;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-blue), var(--accent-green));
+      box-shadow: 0 10px 28px rgba(217,119,87,.18);
+      border:1px solid rgba(255,255,255,.15);
+    }
+    nav a{
+      color: rgba(250,249,245,.86);
+      font-family:var(--heading);
+      font-size:14px;
+      padding:8px 10px;
+      border-radius:12px;
+    }
+    nav a:hover{ background: rgba(250,249,245,.07); }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:12px 16px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(250,249,245,.04);
+      font-family:var(--heading);
+      font-weight:700;
+      font-size:14px;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      cursor:pointer;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(250,249,245,.07);
+      border-color: rgba(250,249,245,.22);
+    }
+    .btn-primary{
+      border-color: rgba(217,119,87,.45);
+      background: rgba(217,119,87,.14);
+    }
+    .btn-primary .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: var(--accent-orange);
+      box-shadow: 0 0 0 6px rgba(217,119,87,.15);
+    }
+
+    .hero{ padding:64px 0 28px; }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:22px;
+      align-items:center;
+    }
+    @media (max-width: 900px){
+      .hero-grid{ grid-template-columns:1fr; }
+    }
+
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(250,249,245,.14);
+      background: rgba(250,249,245,.04);
+      font-family:var(--heading);
+      font-size:13px;
+      color: rgba(250,249,245,.9);
+      margin-bottom:16px;
+    }
+    .kicker .pill{
+      width:10px; height:10px; border-radius:999px;
+      background: var(--accent-blue);
+      box-shadow: 0 0 0 6px rgba(106,155,204,.12);
+    }
+
+    h1,h2,h3{ font-family:var(--heading); margin:0; }
+    h1{
+      font-size: clamp(34px, 4.2vw, 56px);
+      line-height:1.05;
+      letter-spacing:-.8px;
+    }
+    .subhead{
+      margin-top:16px;
+      color: rgba(250,249,245,.86);
+      font-size: 18px;
+      max-width: 56ch;
+    }
+
+    .hero-cta{
+      margin-top:24px;
+      display:flex; flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+    }
+    .micro{
+      margin-top:14px;
+      color: var(--muted);
+      font-size:14px;
+    }
+
+    .hero-card{
+      border:1px solid rgba(250,249,245,.14);
+      background: rgba(250,249,245,.03);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: var(--shadow);
+    }
+    .hero-card .frame{
+      border-radius:14px;
+      overflow:hidden;
+      border:1px solid rgba(250,249,245,.12);
+      background: linear-gradient(180deg, rgba(250,249,245,.06), rgba(250,249,245,.02));
+    }
+    .hero-card .topbar{
+      display:flex; gap:8px; align-items:center;
+      padding:10px 12px;
+      border-bottom:1px solid rgba(250,249,245,.10);
+    }
+    .bubble{ width:10px; height:10px; border-radius:999px; }
+    .b1{ background: var(--accent-orange); }
+    .b2{ background: var(--accent-blue); }
+    .b3{ background: var(--accent-green); }
+
+    .codeish{
+      padding:14px 14px 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size:13px;
+      color: rgba(250,249,245,.92);
+    }
+    .code-line{ opacity:.9; margin:8px 0; }
+    .hl1{ color: var(--accent-orange); }
+    .hl2{ color: var(--accent-blue); }
+    .hl3{ color: var(--accent-green); }
+
+    section{ padding:44px 0; }
+    .section-title{
+      font-family:var(--heading);
+      font-weight:800;
+      letter-spacing:-.2px;
+      font-size: clamp(22px, 2.6vw, 32px);
+    }
+    .section-sub{
+      margin-top:10px;
+      color: rgba(250,249,245,.84);
+      max-width: 70ch;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+      margin-top:20px;
+    }
+    @media (max-width: 900px){
+      .grid-3{ grid-template-columns:1fr; }
+    }
+    .card{
+      border:1px solid rgba(250,249,245,.14);
+      background: rgba(250,249,245,.03);
+      border-radius: var(--radius);
+      padding:18px;
+      min-height: 170px;
+    }
+    .card h3{ font-size:16px; }
+    .card p{ color: rgba(250,249,245,.84); margin:10px 0 0; font-size:15px; }
+
+    .accent-tag{
+      display:inline-flex; align-items:center; gap:10px;
+      font-family:var(--heading);
+      font-weight:800;
+      font-size:12px;
+      letter-spacing:.4px;
+      text-transform:uppercase;
+      color: rgba(250,249,245,.92);
+      padding:8px 10px;
+      border-radius:999px;
+      margin-bottom:12px;
+      border:1px solid rgba(250,249,245,.14);
+      background: rgba(250,249,245,.04);
+    }
+    .accent-dot{
+      width:10px; height:10px; border-radius:999px;
+      box-shadow: 0 0 0 6px rgba(255,255,255,.04);
+    }
+    .a-orange .accent-dot{ background: var(--accent-orange); box-shadow: 0 0 0 6px rgba(217,119,87,.12); }
+    .a-blue .accent-dot{ background: var(--accent-blue); box-shadow: 0 0 0 6px rgba(106,155,204,.12); }
+    .a-green .accent-dot{ background: var(--accent-green); box-shadow: 0 0 0 6px rgba(120,140,93,.12); }
+
+    .panel{
+      background: var(--light-gray);
+      color: #181816;
+      border-radius: calc(var(--radius) + 4px);
+      border: 1px solid rgba(0,0,0,.08);
+      padding:26px;
+      margin-top:18px;
+    }
+    .panel p{ color: rgba(0,0,0,.72); margin:10px 0 0; }
+    .panel h2, .panel h3{ color:#141413; }
+
+    .steps{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:14px;
+      margin-top:18px;
+    }
+    @media (max-width: 900px){
+      .steps{ grid-template-columns:1fr; }
+    }
+    .step{
+      padding:18px;
+      border-radius: var(--radius);
+      border:1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.55);
+    }
+    .step .num{
+      width:34px; height:34px; border-radius:14px;
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--heading);
+      font-weight:900;
+      border:1px solid rgba(0,0,0,.10);
+      margin-bottom:12px;
+    }
+    .num.o{ background: rgba(217,119,87,.18); color:#6b2a11; }
+    .num.b{ background: rgba(106,155,204,.18); color:#14324a; }
+    .num.g{ background: rgba(120,140,93,.18); color:#233018; }
+    .step h3{ font-size:16px; margin:0; }
+    .step p{ margin:10px 0 0; }
+
+    .faq{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:18px;
+    }
+    @media (max-width: 900px){
+      .faq{ grid-template-columns:1fr; }
+    }
+    details{
+      border:1px solid rgba(250,249,245,.14);
+      background: rgba(250,249,245,.03);
+      border-radius: var(--radius);
+      padding:14px 16px;
+    }
+    summary{
+      cursor:pointer;
+      font-family:var(--heading);
+      font-weight:800;
+      font-size:14px;
+      list-style:none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    details p{
+      margin:10px 0 0;
+      color: rgba(250,249,245,.84);
+    }
+
+    footer{
+      padding:36px 0 54px;
+      color: rgba(250,249,245,.78);
+      border-top:1px solid rgba(250,249,245,.08);
+    }
+    .footer-grid{
+      display:flex; flex-wrap:wrap;
+      justify-content:space-between;
+      gap:14px;
+      align-items:flex-start;
+    }
+    .small{ font-size:13px; color: rgba(250,249,245,.70); }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>NovaAI</div>
+      </div>
+      <nav aria-label="Primary">
+        <a href="#features">功能</a>
+        <a href="#how">流程</a>
+        <a href="#faq">FAQ</a>
+        <a href="#cta" class="btn" style="padding:10px 14px;">获取试用</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container hero">
+      <div class="hero-grid">
+        <div>
+          <div class="kicker"><span class="pill" aria-hidden="true"></span>AI 助手，面向真实业务</div>
+          <h1>把复杂工作交给 AI，把结果交给你。</h1>
+          <div class="subhead">
+            NovaAI 结合对话、规划与自动化：从需求澄清到文案/代码/报告输出，一步到位，风格一致、信息清晰、可交付。
+          </div>
+
+          <div class="hero-cta" id="cta">
+            <a class="btn btn-primary" href="#">
+              <span class="dot" aria-hidden="true"></span>
+              免费开始
+            </a>
+            <a class="btn" href="#features">查看功能</a>
+          </div>
+          <div class="micro">无需安装。支持团队协作与可复用的工作流模板。</div>
+        </div>
+
+        <aside class="hero-card" aria-label="Product preview">
+          <div class="frame">
+            <div class="topbar" aria-hidden="true">
+              <span class="bubble b1"></span>
+              <span class="bubble b2"></span>
+              <span class="bubble b3"></span>
+            </div>
+            <div class="codeish">
+              <div class="code-line"><span class="hl2">User:</span> 帮我写一页产品介绍，语气专业、简洁。</div>
+              <div class="code-line"> </div>
+              <div class="code-line"> <span class="hl1">NovaAI:</span> 我会生成：<span class="hl3">标题</span>、<span class="hl3">卖点</span>、<span class="hl3">CTA</span>，并保持 Anthropic 风格配色与层级。</div>
+              <div class="code-line"> </div>
+              <div class="code-line"><span class="hl2">Output:</span> Landing Page 草稿（可一键改写、导出）。</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <section id="features">
+      <div class="container">
+        <div class="section-title">你会立刻感受到的优势</div>
+        <div class="section-sub">用清晰结构、品牌一致的视觉与稳定输出，让每一次生成都更接近“可上线的交付”。</div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="accent-tag a-orange"><span class="accent-dot" aria-hidden="true"></span>可交付</div>
+            <h3>从需求到成稿，一条流程完成</h3>
+            <p>自动提炼关键信息、生成可读的页面结构，并提供可直接替换的文案片段。</p>
+          </div>
+
+          <div class="card">
+            <div class="accent-tag a-blue"><span class="accent-dot" aria-hidden="true"></span>一致性</div>
+            <h3>品牌风格与层级自动保持</h3>
+            <p>统一配色与排版策略：标题更醒目、正文更易读、强调元素使用对比强调。</p>
+          </div>
+
+          <div class="card">
+            <div class="accent-tag a-green"><span class="accent-dot" aria-hidden="true"></span>高效</div>
+            <h3>多轮迭代，不丢上下文</h3>
+            <p>支持快速改写、换语气、补充细节；输出保持格式稳定，适合团队协作。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="container">
+        <div class="section-title">3 步上线（示例流程）</div>
+        <div class="section-sub">你只需要填空、选择方向，其余由系统完成。</div>
+
+        <div class="panel">
+          <div class="steps">
+            <div class="step">
+              <div class="num o">1</div>
+              <h3>告诉我目标</h3>
+              <p>产品名、受众、核心卖点、期望语气（专业/亲切/强势）与 CTA。</p>
+            </div>
+            <div class="step">
+              <div class="num b">2</div>
+              <h3>生成页面结构</h3>
+              <p>Hero、功能、流程、FAQ、定价/CTA 等模块按品牌风格输出。</p>
+            </div>
+            <div class="step">
+              <div class="num g">3</div>
+              <h3>一键替换内容</h3>
+              <p>用你的品牌文案替换占位信息，导出并直接部署到站点。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-title">常见问题</div>
+        <div class="section-sub">简短、明确、可理解。</div>
+
+        <div class="faq">
+          <details open>
+            <summary>这页面是否可以用于不同类型的 AI 产品？</summary>
+            <p>可以。你只需替换产品名、目标用户与核心卖点，结构与风格会保持一致。</p>
+          </details>
+
+          <details>
+            <summary>是否支持多语言？</summary>
+            <p>支持。只要你给出对应语言的卖点与语气偏好，输出会按同一套排版逻辑生成。</p>
+          </details>
+
+          <details>
+            <summary>如何确保品牌配色与层级一致？</summary>
+            <p>通过统一配色变量与字体规则：标题使用 Poppins（兜底 Arial），正文使用 Lora（兜底 Georgia），强调色按橙/蓝/绿循环。</p>
+          </details>
+
+          <details>
+            <summary>能否把它接到自己的前端项目？</summary>
+            <p>可以。把 HTML/CSS 复制到你的项目即可；如果你有现成组件库，我也可以帮你改成组件化版本。</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container footer-grid">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div>NovaAI</div>
+        </div>
+        <div class="small">
+          © 2026 NovaAI. 保持一致、清晰、可交付。
+        </div>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
+
