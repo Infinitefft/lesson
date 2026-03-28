@@ -87,3 +87,26 @@
   - 定时发送ping
   - 接收响应pong
   - 超时判断 + 重连机制
+
+## 了解SSR吗？
+- CSR
+  Client Side Render(react component)
+  致命的缺点：对SEO 不友好，只有一个#root挂载点
+  先返回一个空壳的HTML（#root），由浏览器通过JS渲染页面。
+  优点是交互流畅（路由，单页应用SPA，局部更新无刷新交互，避免了页面重载），
+  前后端分离（mockjs+SPA+zustand）
+  缺点也很明显 首屏加载慢（CSR 需要下载解析JS并请求api数据后渲染，过程串行阻塞，导致首屏白屏时间比较长，相对于SSR服务器端编译和取数据）
+  路由懒加载  骨架屏
+  SEO 不友好，因为开始 HTML 几乎没有内容
+- SSR
+  Server Side Render(server)
+  react js node 运行
+  react component  state + jsx  node运行
+  事件、生命周期等到时候再在前端运行
+  SSR 是指React 在服务器端将组件和数据渲染为完整HTML 字符串后再返回给浏览器
+  hydration 水合 把静态页面变成可交互页面
+  拿着已有的HTML，让JS重新跑一遍，把事件粘上去
+  优点是首屏加载快，SEO友好，缺点是服务器压力大，开发复杂度高
+
+业务场景的选择
+CSR 适合做后台管理系统（自己人用，没有SEO问题）、强交互（Canvas，工作流），ios/android（原生做壳，硬件支持 拍照、蓝牙、陀螺仪，性能要求极高，要做两套），很多页面是用webview（Chrome内核）
