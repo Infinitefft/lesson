@@ -13,37 +13,7 @@ import { ChatOpenAI } from '@langchain/openai';
 import { tool } from '@langchain/core/tools';
 import { z } from 'zod';
 
-const queryUserArgsSchema = z.object({
-  userId: z.string().describe('用户ID，例如：001, 002, 003')
-})
 
-type QueryUserArgs = {
-  userId: string;
-}
-
-const database = {
-  users: {
-    '001': { id: '001', name: '张三', email: 'zhangsan@example.com', role: 'admin' },
-    '002': { id: '002', name: '李四', email: 'lisi@example.com', role: 'user' },
-    '003': { id: '003', name: '王五', email: 'wangwu@example.com', role: 'user' },
-  },
-};
-
-const queryUserTool = tool(
-  async ({ userId }: QueryUserArgs) => {
-    const user = database.users[userId];
-    if (!user) {
-      return `用户 ${userId} 不存在`;
-    }
-    return `用户 ${userId} 的姓名是 ${user.name}，邮箱是 ${user.email}，角色是 ${user.role} `;
-  },
-  {
-    name: "query_user",
-    description: `查询数据库中的用户信息。输入用户ID，
-    返回该用户的详细信息（姓名、邮箱、角色）`,
-    schema: queryUserArgsSchema
-  }
-)
 
 
 @Injectable()
@@ -56,9 +26,12 @@ export class AiService {
 
   // 将 llm 和业务逻辑分离  llm 变化太快
   // 注入了 provide 的model
-  constructor(@Inject('CHAT_MODEL') model: ChatOpenAI) {
+  constructor(
+    @Inject('CHAT_MODEL') model: ChatOpenAI,
+    @Inject('QUERY_USER_TOOL') private readonly queryUserTool: any
+  ) {
     this.modelWithTools = model.bindTools([
-      queryUserTool,
+      this.queryUserTool,
     ]);
   }
 
@@ -107,8 +80,7 @@ export class AiService {
         const toolCallId = toolCall.id || '';
         const toolName = toolCall.name;
         if (toolName === 'query_user') {
-          const args = queryUserArgsSchema.parse(toolCall.args);
-          const result = await queryUserTool.invoke(args);
+          const result = await this.queryUserTool.invoke(toolCall.args);
           messages.push(
             new ToolMessage({
               content: result,

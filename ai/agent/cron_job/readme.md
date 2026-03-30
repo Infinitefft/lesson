@@ -49,3 +49,28 @@ async await 的前身
   - agentLoop
     - 如果要调用工具，执行tool(args)
   - 结束
+
+## Event Source
+- hmtl5 特性的时候
+  - 语义化标签
+  - video/audio 标签，哔哩哔哩
+  - canvas 游戏和3D
+  - 定位 Geolocation 经纬度  美团的点外卖
+  - 表单的增强能力 placeholder required type="range" input 的类型
+  - llm 流式输出 EventSource 自动接收服务器推送的文本数据流
+  - localStorage/sessionStorage 本地存储
+  - Web Worder  JS 多线程
+  - WebSocket 全双工通信
+  - 拖放 API
+  - getUserMedia 摄像头 web直播/视频
+  - history API 前端路由
+
+- ts 的 Partial 和 Omit
+  Partial可选  Omit排除
+  partial: Partial<Omit<User, 'id'>>
+  
+
+- 深化tool
+  - query_user
+  把 tool 作为provide 在module 里声明，和原有的service 解耦
+  依赖注入的方式 model.bindTools()
