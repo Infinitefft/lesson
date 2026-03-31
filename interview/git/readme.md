@@ -20,6 +20,17 @@
 git diff main origin/main 远程改了哪些代码，本地缺哪些更新
 git merge origin/main 
 本地有自己的修改，不想立马合并
+git 自己的分支在开发，还没有完工（bug）
+立马有个bug 需要去修 1212909009
+修改多个文件，不方便立马去提交到仓库
+会出问题  dev 的修改会丢失，在退出当前分支前存档
+git stash 111909099
+
 
 ### git pull
 拉取远程更新，自动merge
+
+### git merge 和 git rebase
+接收代码的改变可以有两种选择
+merge 合并 有缺点 会让提交历史变复杂，后期排查问题会很乱
+rebase 变基 有优点 改变提交的基点，提交历史变成一条干净的时间线
