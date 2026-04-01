@@ -34,3 +34,95 @@ Access-Control-Allow-Credentials: true 是否允许发送凭据（cookies，HTTP
 - 使用了非简单方法（如PUT、DELETE，而不是GET/POST）
 - 使用了自定义的请求头 X-Custom-Header
 - 请求内容类型不是 application/x-www-form-urlencoded multipart/form-data 或 text/plain
+
+### cors 预检(preflight)请求
+先发送 OPTIONS 请求，服务器要配合，返回 CORS 响应头设置，状态码为204(No Content) 没有响应体
+浏览器根据响应头进行预检
+之后再进行复杂请求的真是处理。
+
+
+## websocket 不是http，没有同源策略，可以跨域
+- 先用 http 协议，连接用户
+- new WebSocket(ws://url) 101 切换协议，建立双工通信
+- 基于消息机制通信
+
+## postMessage html5 特性
+postMessage 是浏览器提供的 API ，允许不同源的窗口或 iframe 实现跨域通信。
+iframe 标签，网页里打开另一个网页，性能差，不建议用。
+举例：主站页面窗口，唤起第三方支付窗口，通过 postMessage 发送订单的详情。
+支付成功后，结果的回传
+<iframe> 是 HTML 中的一个标签，它允许你在当前网页中嵌入并显示另一个独立的网页或文档，就像一个“画中画”的窗口。
+
+## vite 反向代理 proxy
+```
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  }
+})
+```
+前端全栈开发的本地开发适合使用这个配置
+前端需要后端提供api
+vite proxy 配置 拦截/api 请求
+向后端api端口发送请求
+vite 请求是后端向后端的请求，不受同源策略的影响，不跨域
+
+### ngnix 反向代理proxy
+- 相对于vite，线上跨域 proxy
+- 80端口
+  www.baidu.com -> dns  ip -> nginx 在80端口 
+  proxy 3000
+
+  localhost/api  domain/api  -> 代理 localhost:3000/api
+
+```
+server {
+  listen 80;  # 监听端口
+  server_name localhost;  # 当前服务域名
+
+  # 前端静态资源（可选）
+  location / {
+    root   /usr/share/nginx/html;
+    index  index.html;
+  }
+
+  # 👇 核心：代理 /api 请求
+  location /api/ {
+
+    # 👉 目标服务器地址（后端接口）
+    proxy_pass https://api.example.com/;
+
+    # 👉 修改请求头中的 Host（避免后端识别错误）
+    proxy_set_header Host $host;
+
+    # 👉 获取真实客户端 IP（生产环境常用）
+    proxy_set_header X-Real-IP $remote_addr;
+
+    # 👉 转发客户端 IP 链（多层代理时用）
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+    # 👉 支持 https 场景（有些接口需要）
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    # 👉 关闭缓存（调试接口时很重要）
+    proxy_cache_bypass $http_upgrade;
+  }
+}
+```
+
+推荐使用 ngnix proxy_pass 配置反向代理
+ngnix 80 端口 / 编译后的 index.html, main.jsx, app.jsx 前端启动起来了
+/api 接口请求 走 ngnix的proxy_pass api.example.com 实现跨域代理
+适合部门或公司内部，对于集团的多个子公司，合作的其他公司
+cors的白名单配置更适合
