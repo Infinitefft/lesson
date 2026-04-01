@@ -34,11 +34,20 @@ async function start() {
         path.resolve(__dirname, 'index.html'),
         'utf-8'
       );
-      const { render } = await vite.transformIndexHtml(req.url, template);
       console.log(template, '/////');
-      res.status(200).set({'Content-Type': 'text/html'}).end(template);
+      // 让vite 接管HTML
+      // 处理HTML 模板，返回处理后的html
+      template = await vite.transformIndexHtml(req.url, template);
+      console.log(template, '/////');
+      // ssrLoadModule 加载服务端入口文件，并返回一个对象，对象中包含render函数
+      const { render } = await vite.ssrLoadModule('/src/entry-server.jsx');
+      console.log(template, '/////');
+      // react 在服务器端将组件和数据渲染为完整的HTML字符串
+      const appHtml = await render();
+      const html = template.replace('<!---app-html-->', appHtml);
+      res.status(200).set({'Content-Type': 'text/html'}).end(html);
     } catch (err) {
-
+      res.status(500).end(err.message);
     }
   })
 }
