@@ -78,7 +78,7 @@ vite proxy 配置 拦截/api 请求
 向后端api端口发送请求
 vite 请求是后端向后端的请求，不受同源策略的影响，不跨域
 
-### ngnix 反向代理proxy
+## ngnix 反向代理proxy
 - 相对于vite，线上跨域 proxy
 - 80端口
   www.baidu.com -> dns  ip -> nginx 在80端口 
