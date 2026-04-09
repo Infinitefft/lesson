@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  .layout {
+    color: #fff;
+    padding: 0 100px;
+    min-width: 500px;
+  }
+  h4 {
+    position: relative;
+    color: #333;
+    margin: 20px 0 10px;
+  }
+  h4::before {
+    content: '#';
+    position: absolute;
+    left: -20px;
+    top: -1px;
+    font-size: 18px;
+    color: #38ab89;
+  }
+  section {
+    margin-bottom: 50px;
+  }
+  aside {
+    width: 200px;
+    height: 50px;
+  }
+  .orange {
+    background-color: orange;
+  }
+  .green {
+    background-color: green;
+  }
+  .float {
+    float: left;
+  }
+  .hidden {
+    overflow: hidden;
+  }
+  .margin {
+    margin-left: 200px;
+  }
+  .flex {
+    display: flex;
+  }
+  .main {
+    flex: 1;
+  }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <h4>方法三：flex</h4>
+  <section class="section flex">
+    <aside class="orange float">aside</aside>
+    <main class="green main">main</main>
+  </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .layout {
+        color: #fff;
+        padding: 0 100px; 
+        min-width: 500px;
+    }
+    .w150 {
+        width: 150px;
+        height: 250px;
+    }
+    main {
+        height: 300px;
+    }
+    .orange {
+        background-color: orange;
+    }
+    .green {
+        background-color: green;
+    }
+    .grail {
+        padding: 0 150px;/* 父容器留白 */
+    }
+    .grail main {
+        width: 100%;
+        float: left;
+    }
+    .grail .left {
+        position: relative;
+        margin-left: -100%;
+        float: left;
+        left: -150px;
+    } 
+    .grail .right {
+        float: left;
+        position: relative;
+        margin-left: -150px;
+        right: -150px;
+    }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <h4>方法一：圣杯布局</h4>
+    <section class="grail clearfix">
+        <main class="green">main</main>
+        <aside class="w150 left orange">aside</aside>
+        <aside class="w150 right orange">aside</aside>
+    .clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    </section>
+</div>
+</body>
+</html>

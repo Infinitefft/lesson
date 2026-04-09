@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .w150 {
+            width: 150px;
+            height: 150px;
+        }
+        .orange {
+            background-color: orange;
+        }
+        .green {
+            background-color: green;
+        }
+        .left {
+            float: left;
+        }
+        .right {
+            float: right;
+        }
+        .wings main {
+            float: left;
+            width: 100%;
+        }
+        .wings .inner {
+            margin: 0 150px;
+            height: 100px;
+        }
+        .wings .right {
+            float: right;
+            
+        }
+    </style>
+</head>
+<body>
+    <section class="wings clearfix">
+        <main>
+            <div class="green inner">main</div>
+        </main>
+        <aside class="w150 left orange">aside</aside>
+        <aside class="w150 right orange">aside</aside>
+    </section>
+</body>
+</html>
