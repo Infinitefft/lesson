@@ -4,8 +4,9 @@ HTTP, HyperText Transfer Protocol 是基于TCP/IP 的应用层协议，是互联
 
 我将从http 各个历史版本的进化来介绍
 
-- http 0.9 是最原始的版本，仅支持GET请求，无请求头与响应头
+- Http 0.9 是最原始的版本，仅支持GET请求，无请求头与响应头
 文本互联通信设计
+
 - HTTP 1.0
     - 支持多种方法 GET/POST/HEAD
     HEAD 只返回响应头没有正文
