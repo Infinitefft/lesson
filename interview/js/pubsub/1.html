@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">App</div>
+
+    <script>
+        const target = document.getElementById('app');
+        const observer = new MutationObserver((mutations) => {
+            console.log('发现DOM变化了');
+        });
+        observer.observe(target, { childList: true });
+        setTimeout(() => {
+            target.innerHTML = 'App 2';
+        }, 2000)
+    </script>
+</body>
+</html>
