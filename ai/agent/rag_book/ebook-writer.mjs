@@ -78,7 +78,9 @@ async function ensureBookCollection(bookId) {
       await client.createIndex({
         collection_name: COLLECTION_NAME,
         field_name: 'vector',
+        // 索引类型 向量检索算法
         index_type: IndexType.IVF_FLAT,
+        // 相似度计算方式
         metric_type: MetricType.COSINE,
         params: {
           nlist: VECTION_DIM,
