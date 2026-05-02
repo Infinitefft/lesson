@@ -169,6 +169,6 @@ export default [
         data: filteredPosts,
         total: filteredPosts.length,
       }
-    }  
+    }
   }
 ]

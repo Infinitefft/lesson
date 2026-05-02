@@ -61,17 +61,19 @@ const askLLM = async () => {
     while (!done) {   // 只要没有完成，就一直拼接buffer
       // 解构的同时 重命名 done: doneReading
       const {value, done: doneReading} = await (reader?.read())
-      console.log(value, doneReading);
+      // console.log(value, doneReading);
       done = doneReading;
       // chunk 内容块 包含多行data: 有多少行不确定
       // data: {} 能不能传完也不知道
       const chunkValue = buffer + decoder.decode(value);   // 字符串
-      console.log(chunkValue);
+      // console.log(chunkValue);
       buffer = "";
       const lines = chunkValue.split('\n')
       .filter(line => line.startsWith('data:'))
       for (const line of lines) {
+        console.log("line:", line);
         const incoming = line.slice(6);  // 干掉数据标志
+        console.log("incoming:", incoming);
         if (incoming == "[DONE]") {
           done = true;
           break;
@@ -91,7 +93,7 @@ const askLLM = async () => {
     }
   } else {
     const data = await response.json();
-    console.log(data);
+    console.log("data:", data.choices[0]);
     content.value = data.choices[0].message.content;
   }
 }
