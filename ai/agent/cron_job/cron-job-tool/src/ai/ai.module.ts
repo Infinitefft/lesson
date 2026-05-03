@@ -4,6 +4,7 @@ import { AiController } from './ai.controller';
 import { ChatOpenAI } from '@langchain/openai';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from './user.service';
+import { MailerService } from '@nestjs-modules/mailer';
 import { z } from 'zod';
 import { tool } from '@langchain/core/tools';
 
@@ -60,6 +61,15 @@ import { tool } from '@langchain/core/tools';
         )
       },
       inject: [UserService]
+    },
+    {
+      provide: 'SEND_MAIL_TOOL',
+      useFactory: (mailerService: MailerService, configService: ConfigService) => {
+        const sendMailArgsSchema = z.object({
+          
+        })
+      },
+      inject: [MailerService, ConfigService]
     }
   ],
 })
